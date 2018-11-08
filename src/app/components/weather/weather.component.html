@@ -41,12 +41,12 @@
       </form>
     </mat-card-content>
   </mat-card>
-  <mat-card *ngIf="weatherReport">
+  <mat-card *ngIf="showReport">
     <mat-card-title>
-      Weather Report for {{this.searchForm.controls['location']?.value?.EnglishName}}
+      Weather Report for {{this.searchForm.controls['location']?.value?.EnglishName || this.searchForm.controls['location']?.value}}
     </mat-card-title>
     <mat-card-content>
-      <div fxLayout.gt-xs="column" fxLayout.xs="column" fxLayoutGap="10px" class="mt40">
+      <div fxLayout.gt-xs="column" fxLayout.xs="column" fxLayoutGap="10px" class="mt40" *ngIf="weatherReport">
         <div> Temperature: {{weatherReport.Temperature?.Metric?.Value}} {{weatherReport.Temperature?.Metric?.Unit}}</div>
         <div>Weather: {{weatherReport.WeatherText}}</div>
       </div>

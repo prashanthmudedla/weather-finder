@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  ACCUWEATHER_API_KEY: 'yQGtOCtuhcnvTRzf3aGhhGTDT6iWHaJ2',
+  // ACCUWEATHER_API_KEY: 'yQGtOCtuhcnvTRzf3aGhhGTDT6iWHaJ2',
+  ACCUWEATHER_API_KEY: 'r7G5nCxuZsAZ0eYGgJ34u923T7UrkLjt',
   // ACCUWEATHER_API_KEY: 'Gq1oAAHDUQTpQPGqub92flHV90AyXRz0',
   ACCUWEATHER_CURRENT_CONDITIONS_API_END_POINT: 'http://dataservice.accuweather.com/currentconditions/v1',
   ACCUWEATHER_COUNTRY_LIST_API_END_POINT: 'http://dataservice.accuweather.com/locations/v1/countries',

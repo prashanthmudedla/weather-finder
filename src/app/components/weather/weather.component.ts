@@ -22,6 +22,7 @@ export class WeatherComponent implements OnInit, OnDestroy {
   public searchForm: FormGroup;
   public weatherReport: CurrentConditions;
   public filteredCityList: CitySearchResult[];
+  public showReport = false;
   private cityList: CitySearchResult[];
 
   private formChangeSubscriptions: Subscription[] = [];
@@ -46,6 +47,7 @@ export class WeatherComponent implements OnInit, OnDestroy {
   public getWeatherReport(): void {
     if (!this.searchForm || !this.searchForm.valid) { return; }
 
+    this.showReport = true;
     const location: CitySearchResult = this.searchForm.controls['location'].value;
     if (location && location.Key) {
       this.weatherService.getCurrentConditionsReport(location.Key)
@@ -75,17 +77,25 @@ export class WeatherComponent implements OnInit, OnDestroy {
     this.formChangeSubscriptions.push(
       this.searchForm.controls['region'].valueChanges
         .subscribe((reg: Region) => {
+          this.weatherReport = null;
           this.getCountryList(reg.ID);
         }),
 
-        this.searchForm.controls['location'].valueChanges
-          .pipe(debounceTime(400))
-          .subscribe((value: string) => {
-            const country = this.searchForm.controls['country'].value;
-            if (value && value.length > 2 && country) {
-              this.getcitiesForCountry(country.ID, value);
-            }
-          })
+      this.searchForm.controls['country'].valueChanges
+        .subscribe((reg: Region) => {
+          this.weatherReport = null;
+        }),
+
+
+      this.searchForm.controls['location'].valueChanges
+        .pipe(debounceTime(400))
+        .subscribe((value: string) => {
+          this.weatherReport = null;
+          const country = this.searchForm.controls['country'].value;
+          if (value && value.length > 2 && country) {
+            this.getcitiesForCountry(country.ID, value);
+          }
+        })
 
     );
   }
