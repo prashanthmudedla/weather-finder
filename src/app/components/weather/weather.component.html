@@ -41,7 +41,7 @@
       </form>
     </mat-card-content>
   </mat-card>
-  <mat-card *ngIf="showReport">
+  <mat-card *ngIf="showReport && this.searchForm.controls['location']?.value">
     <mat-card-title>
       Weather Report for {{this.searchForm.controls['location']?.value?.EnglishName || this.searchForm.controls['location']?.value}}
     </mat-card-title>

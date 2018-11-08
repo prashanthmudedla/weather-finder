@@ -79,11 +79,13 @@ export class WeatherComponent implements OnInit, OnDestroy {
         .subscribe((reg: Region) => {
           this.weatherReport = null;
           this.getCountryList(reg.ID);
+          this.searchForm.controls['location'].setValue('');
         }),
 
       this.searchForm.controls['country'].valueChanges
         .subscribe((reg: Region) => {
           this.weatherReport = null;
+          this.searchForm.controls['location'].setValue('');
         }),
 
 
