@@ -1,0 +1,55 @@
+<div fxLayout="column" fxFlex.gt-xs="70" fxFlex.xs="90" fxLayoutGap="40px" class="base-container">
+  <mat-card>
+    <mat-card-title fxLayoutAlign="center center" class="mb40">Weather Finder</mat-card-title>
+    <mat-card-content>
+      <form (submit)="getWeatherReport()" [formGroup]="searchForm">
+        <div fxLayout.gt-xs="row wrap" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign.gt-xs="center center">
+          <mat-form-field fxFlex.gt-xs="25">
+            <mat-select placeholder="Select Region" formControlName="region">
+              <mat-option *ngFor="let region of regionList" [value]="region">
+                {{region.EnglishName}}
+              </mat-option>
+            </mat-select>
+            <mat-error>This is a required field</mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlex.gt-xs="25">
+            <mat-select placeholder="Select Country" formControlName="country">
+              <mat-option *ngFor="let country of countryList" [value]="country">
+                {{country.EnglishName}}
+              </mat-option>
+            </mat-select>
+            <mat-error>This is a required field</mat-error>
+          </mat-form-field>
+      
+          <mat-form-field fxFlex.gt-xs="20">
+            <input matInput color="primary" formControlName="location"
+              placeholder="Enter a Location" [matAutocomplete]="auto"/>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayCityFn">
+              <mat-option *ngFor="let city of cityList" [value]="city">
+                {{city?.EnglishName}}, {{city?.Country?.EnglishName}}, {{city?.PrimaryPostalCode}}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error>This is a required field</mat-error>
+          </mat-form-field>
+
+          <button mat-button mat-raised-button color="primary" 
+            fxFlex.gt-xs="20" [disabled]="searchForm && searchForm.invalid">
+            Get Weather Report!</button>
+            
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <mat-card *ngIf="weatherReport">
+    <mat-card-title>
+      Weather Report for {{this.searchForm.controls['location']?.value?.EnglishName}}
+    </mat-card-title>
+    <mat-card-content>
+      <div fxLayout.gt-xs="column" fxLayout.xs="column" fxLayoutGap="10px" class="mt40">
+        <div> Temperature: {{weatherReport.Temperature?.Metric?.Value}} {{weatherReport.Temperature?.Metric?.Unit}}</div>
+        <div>Weather: {{weatherReport.WeatherText}}</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
